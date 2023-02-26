@@ -1,4 +1,5 @@
 using FluentMigrator.Runner;
+using MinhasReceitas.Api.Filtros;
 using MinhasReceitas.Domain.Extension;
 using MinhasReceitas.Infrastructure;
 using MinhasReceitas.Infrastructure.Migrations;
@@ -13,6 +14,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddRepositorio(builder.Configuration);
+
+builder.Services.AddMvc(options => options.Filters.Add(typeof(FiltrosDasExceptions)));
 
 var app = builder.Build();
 

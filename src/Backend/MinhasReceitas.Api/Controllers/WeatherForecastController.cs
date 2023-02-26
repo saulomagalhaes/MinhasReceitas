@@ -1,33 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
+using MinhasReceitas.Application.UseCases.Usuario.Registrar;
+using MinhasReceitas.Communication.Requisicoes;
+using MinhasReceitas.Exceptions;
 
-namespace MinhasReceitas.Api.Controllers
+namespace MinhasReceitas.Api.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class WeatherForecastController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+
+    [HttpGet(Name = "GetWeatherForecast")]
+    public async Task<IActionResult> Get()
     {
-        private static readonly string[] Summaries = new[]
+        var usecase = new RegistrarUsuarioUseCase();
+        await usecase.Executar(new RequisicaoRegistrarUsuarioJson
         {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+            
+        });
 
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
-
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
-        {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
-        }
+        return Ok();
     }
 }

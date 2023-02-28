@@ -1,4 +1,6 @@
-using FluentMigrator.Runner;
+using MinhasReceitas.Api.Filtros;
+using MinhasReceitas.Application;
+using MinhasReceitas.Application.Servicos.Automapper;
 using MinhasReceitas.Domain.Extension;
 using MinhasReceitas.Infrastructure;
 using MinhasReceitas.Infrastructure.Migrations;
@@ -13,6 +15,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddRepositorio(builder.Configuration);
+builder.Services.AddApplication(builder.Configuration);
+
+builder.Services.AddMvc(options => options.Filters.Add(typeof(FiltrosDasExceptions)));
+
+builder.Services.AddScoped(provider => new AutoMapper.MapperConfiguration(cfg =>
+{
+    cfg.AddProfile(new AutomapperConfiguracao());
+}).CreateMapper());
 
 var app = builder.Build();
 

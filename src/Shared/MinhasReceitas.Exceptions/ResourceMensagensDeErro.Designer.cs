@@ -61,6 +61,15 @@ namespace MinhasReceitas.Exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a O email informado já está registrado na base de dados..
+        /// </summary>
+        public static string EMAIL_JA_CADASTRADO {
+            get {
+                return ResourceManager.GetString("EMAIL_JA_CADASTRADO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O email do usuário deve ser informado..
         /// </summary>
         public static string EMAIL_USUARIO_EM_BRANCO {
